@@ -14,15 +14,6 @@ app.get('/', (req, res) => {
 
 app.use('/todos', todosRouter)
 
-
-/*
-leer todos los todos
-leer un todo en especifico
-crear un todo
-eliminar un todo
-editar un todo
-*/
-
 app.listen(PORT, () => {
     console.log(`Server started at port ${PORT} `)
 })
