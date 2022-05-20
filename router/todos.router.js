@@ -1,28 +1,21 @@
 const router = require('express').Router()
+const todosController = require('../controllers/todos.controllers')
 
-const todosDB = [
-    {
-        id: 1,
-        title: "Primer todo",
-        description: "ndslkfjanskdbf",
-        isCompleted: false
-    }
-]
 
 router.get('/',(req, res) => {
-    res.json(todosDB)
+    res.json(todosController.getAllTodos())
 })
 
 router.get('/:id',(req, res) => {
 
     const id = Number(req.params.id)
 
-    const data = todosDB.filter(item => item.id === id )
+    const data = todosController.getTodoById(id)
 
-    if(data.length){
+    if(data.id){
         res.json(data)
     } else {
-        res.status(418).json({
+        res.status(400).json({
             message: "Try with another id, this todo is undefined"
         })
     }
@@ -33,16 +26,9 @@ router.post('/',(req, res) => {
 
     const data = req.body
 
-    const newObj = {
-        id: todosDB[todosDB.length - 1].id + 1,
-        title: data.title,
-        description: data.description,
-        isCompleted: false
-    }
+    const response = todosController.createTodo(data)
 
-    todosDB.push(newObj)
-
-    res.status(201).json(todosDB)
+    res.status(201).json(response)
 })
 
 router.delete('/:id',(req, res) => {
