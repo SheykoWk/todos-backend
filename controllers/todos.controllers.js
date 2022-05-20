@@ -34,10 +34,26 @@ const createTodo = (data) => {
 const deleteTodo = (id) => {
     const index = todosDB.findIndex((item) => item.id === id )
     todosDB.splice(index, 1)
-    return ""
+    return 
+}
+
+const editTodo = (id, data) => {
+    const index = todosDB.findIndex((item) => item.id === id )
+    if(index !== -1){
+        todosDB[index] = {
+            id: id,
+            title: data.title,
+            description: data.description,
+            isCompleted: data.isCompleted
+        }
+    } else {
+        createTodo(data)
+    }
+    return todosDB
 }
 
 exports.getAllTodos = getAllTodos
 exports.getTodoById = getTodoById
 exports.createTodo = createTodo
 exports.deleteTodo = deleteTodo
+exports.editTodo = editTodo

@@ -30,12 +30,17 @@ router.delete('/:id',(req, res) => {
 
     todosController.deleteTodo(id)
 
-    res.status(204).json({message: `Todo with the id ${id} deleted succesfully`})
+    res.status(204).json()
 
 })
 
 router.put('/:id',(req, res) => {
-    res.send('<h1>Editando un todo</h1>')
+    const id = Number(req.params.id)
+    const data = req.body
+
+    const response = todosController.editTodo(id, data)
+
+    res.status(201).json(response)
 })
 
 
